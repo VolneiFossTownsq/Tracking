@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "14813350715",
+    "project_id": "condotracking-c84a6",
+    "storage_bucket": "condotracking-c84a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14813350715:android:f561496cf2bc2b306b451e",
+        "android_client_info": {
+          "package_name": "com.example.condotracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "14813350715-mr9mvun294rnndn5qlertqvfsujvf8co.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeT1eWvo2BV9T9qj53e5zYARhUOVn5jE0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "14813350715-mr9mvun294rnndn5qlertqvfsujvf8co.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
