@@ -1,5 +1,3 @@
-package com.example.condotracking.ui.feed
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,11 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.condotracking.databinding.FragmentFeedBinding
+import com.example.condotracking.ui.feed.FeedViewModel
 import com.example.condotracking.ui.feed.adapter.FilterAdapter
 import com.example.condotracking.ui.feed.adapter.OfferAdapter
 import com.example.condotracking.ui.feed.data.FilterItem
 import com.example.condotracking.ui.homeFeed.HomeActivity
-import com.example.condotracking.ui.homeFeed.HomeFragment
 import com.google.firebase.analytics.FirebaseAnalytics
 
 class FeedFragment : Fragment() {
@@ -26,10 +24,10 @@ class FeedFragment : Fragment() {
     private var filterAdapter: FilterAdapter = FilterAdapter()
     private var offerAdapter: OfferAdapter = OfferAdapter()
     private var toAnalytics: ImageView? = null
-    private var chipInteractionStartTime: Long = 0
+    private var currentCategoryStartTime: Long = 0
     private var lastSelectedFilter: FilterItem? = null
 
-    private var firebaseAnalytics: FirebaseAnalytics? = null
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -70,10 +68,9 @@ class FeedFragment : Fragment() {
                 leaveFilter(lastSelectedFilter?.name ?: "")
             }
 
-            chipInteractionStartTime = System.currentTimeMillis()
+            currentCategoryStartTime = System.currentTimeMillis()
 
-            trackFilterSelection(selectedFilter)
-
+            trackScreenView(selectedFilter.name)
             val filteredOffers = viewModel?.getFilteredOffers(selectedFilter.name) ?: emptyList()
             offerAdapter.setOffers(filteredOffers)
 
@@ -82,25 +79,25 @@ class FeedFragment : Fragment() {
         goToAnalytics()
     }
 
-    private fun trackFilterSelection(selectedFilter: FilterItem) {
+    private fun trackScreenView(screenName: String) {
         val bundle = Bundle().apply {
-            putString("filtro", selectedFilter.name)
+            putString(FirebaseAnalytics.Param.SCREEN_NAME, screenName)
         }
 
-        firebaseAnalytics?.logEvent("filtro_selecionado", bundle)
-
-        firebaseAnalytics?.setUserProperty("filtro_selecionado", selectedFilter.name)
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
     }
 
+
     private fun leaveFilter(selectedFilterName: String) {
-        if (chipInteractionStartTime > 0) {
-            val timeSpentInMillis = System.currentTimeMillis() - chipInteractionStartTime
+        if (currentCategoryStartTime > 0) {
+            val timeSpentInMillis = System.currentTimeMillis() - currentCategoryStartTime
+            val timeSpentInMinutes = timeSpentInMillis / (1000 * 60)
 
             val timeBundle = Bundle().apply {
-                putLong("tempo_gasto", timeSpentInMillis)
+                putLong("tempo_engajamento_em_minutos", timeSpentInMinutes)
                 putString("filtro", selectedFilterName)
             }
-            firebaseAnalytics?.logEvent("tempo_chip", timeBundle)
+            firebaseAnalytics.logEvent("tempo_engajamento_em_minutos", timeBundle)
         }
     }
 
@@ -111,6 +108,4 @@ class FeedFragment : Fragment() {
         }
     }
 }
-
-
 

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.condotracking.R
 import com.example.condotracking.databinding.ActivityHomeBinding
-import com.example.condotracking.ui.feed.FeedFragment
 
 class HomeActivity : AppCompatActivity() {
 
