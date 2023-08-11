@@ -3,10 +3,9 @@ package com.example.condotracking.ui.feed
 import FeedFragment
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils.replace
 import com.example.condotracking.R
 import com.example.condotracking.databinding.ActivityFeedBinding
-import com.example.condotracking.ui.homeFeed.HomeFragment
+
 
 class FeedActivity : AppCompatActivity() {
 

@@ -43,8 +43,8 @@ android {
 
 dependencies {
 
-    implementation("com.google.firebase:firebase-analytics:19.0.0")
-    implementation("com.google.android.gms:play-services-analytics:17.0.0")
+    implementation("com.google.firebase:firebase-analytics-ktx:21.3.0")
+    implementation("com.google.android.gms:play-services-analytics:18.0.3")
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
